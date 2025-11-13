@@ -1,19 +1,20 @@
 package br.com.fiap.to;
 
 import br.com.fiap.enums.TipoHabilidade;
+import br.com.fiap.enums.TipoNivelHabilidade;
 
 public class UsuarioHabilidadeTO {
-    private long id;
-    private long usuarioId;
+    private long id; // id_usuario_habilidade
+    private long usuarioId; // id_usuario
     private String nomeUsuario;
-    private long habilidadeId;
+    private long habilidadeId; // id_habilidade
     private String nomeHabilidade;
     private TipoHabilidade tipoHabilidade;
-    private int nivelExperiencia;
+    private TipoNivelHabilidade nivelExperiencia; // tp_nivel_experiencia
 
     public UsuarioHabilidadeTO() {}
 
-    public UsuarioHabilidadeTO(long id, long usuarioId, String nomeUsuario, long habilidadeId, String nomeHabilidade, TipoHabilidade tipoHabilidade, int nivelExperiencia) {
+    public UsuarioHabilidadeTO(long id, long usuarioId, String nomeUsuario, long habilidadeId, String nomeHabilidade, TipoHabilidade tipoHabilidade, TipoNivelHabilidade nivelExperiencia) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.nomeUsuario = nomeUsuario;
@@ -71,11 +72,11 @@ public class UsuarioHabilidadeTO {
         this.tipoHabilidade = tipoHabilidade;
     }
 
-    public int getNivelExperiencia() {
+    public TipoNivelHabilidade getNivelExperiencia() {
         return nivelExperiencia;
     }
 
-    public void setNivelExperiencia(int nivelExperiencia) {
+    public void setNivelExperiencia(TipoNivelHabilidade nivelExperiencia) {
         this.nivelExperiencia = nivelExperiencia;
     }
 }

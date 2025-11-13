@@ -3,10 +3,10 @@ package br.com.fiap.to;
 import br.com.fiap.enums.TipoHabilidade;
 
 public class HabilidadeTO {
-    private long id;
-    private String nome;
-    private String descricao;
-    private TipoHabilidade tipoHabilidade;
+    private long id; // id_habilidade
+    private String nome; // nm_habilidade
+    private String descricao; // dc_habilidade
+    private TipoHabilidade tipoHabilidade; // tp_habilidade
 
     public HabilidadeTO() {}
 

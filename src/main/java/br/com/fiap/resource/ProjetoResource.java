@@ -1,7 +1,7 @@
 package br.com.fiap.resource;
 
-import br.com.fiap.bo.UsuarioHabilidadeBO;
-import br.com.fiap.to.UsuarioHabilidadeTO;
+import br.com.fiap.bo.ProjetoBO;
+import br.com.fiap.to.ProjetoTO;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -9,15 +9,15 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 
-@Path("/usuario-habilidade")
+@Path("/projeto")
 
-public class UsuarioHabilidadeResource {
-    private UsuarioHabilidadeBO usuarioHabilidadeBO = new UsuarioHabilidadeBO();
+public class ProjetoResource {
+    private ProjetoBO projetoBO = new ProjetoBO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
-        ArrayList<UsuarioHabilidadeTO> resultado = usuarioHabilidadeBO.findAll();
+        ArrayList<ProjetoTO> resultado = projetoBO.findAll();
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -32,7 +32,7 @@ public class UsuarioHabilidadeResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) {
-        UsuarioHabilidadeTO resultado = usuarioHabilidadeBO.findById(id);
+        ProjetoTO resultado = projetoBO.findById(id);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -45,8 +45,8 @@ public class UsuarioHabilidadeResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Valid UsuarioHabilidadeTO usuarioHabilidade) {
-        UsuarioHabilidadeTO resultado = usuarioHabilidadeBO.save(usuarioHabilidade);
+    public Response save(@Valid ProjetoTO projeto) {
+        ProjetoTO resultado = projetoBO.save(projeto);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.created(null);
@@ -61,7 +61,7 @@ public class UsuarioHabilidadeResource {
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         Response.ResponseBuilder response = null;
-        if (usuarioHabilidadeBO.delete(id)) {
+        if (projetoBO.delete(id)) {
             response = Response.status(204);
         } else {
             response = Response.status(404);
@@ -72,9 +72,9 @@ public class UsuarioHabilidadeResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@Valid UsuarioHabilidadeTO usuarioHabilidade, @PathParam("id") Long id) {
-        usuarioHabilidade.setId(id);
-        UsuarioHabilidadeTO resultado = usuarioHabilidadeBO.update(usuarioHabilidade);
+    public Response update(@Valid ProjetoTO projeto, @PathParam("id") Long id) {
+        projeto.setId(id);
+        ProjetoTO resultado = projetoBO.update(projeto);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.created(null);

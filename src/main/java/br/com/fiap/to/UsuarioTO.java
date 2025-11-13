@@ -3,11 +3,11 @@ package br.com.fiap.to;
 import br.com.fiap.enums.TipoContaUsuario;
 
 public class UsuarioTO {
-    private long id;
-    private String nome;
-    private String email;
-    private int RM;
-    private TipoContaUsuario tipoConta;
+    private long id; // id_usuario
+    private String nome; // nm_usuario
+    private String email; // dc_email
+    private int RM; // nr_rm
+    private TipoContaUsuario tipoConta; // tp_conta
 
     public UsuarioTO() {}
 
