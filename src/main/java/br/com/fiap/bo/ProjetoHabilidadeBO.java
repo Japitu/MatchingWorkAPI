@@ -75,8 +75,22 @@ public class ProjetoHabilidadeBO {
         return Resultado;
     }
 
-    public ProjetoHabilidadeTO save(ProjetoHabilidadeTO projetoHabilidade) {
+    public ProjetoHabilidadeTO save(ProjetoHabilidadeTO projetoHabilidade) throws Exception{
         projetoHabilidadeDAO = new ProjetoHabilidadeDAO();
+        projetoDAO = new ProjetoDAO();
+        habilidadeDAO = new HabilidadeDAO();
+
+        ProjetoTO projeto = projetoDAO.findById(projetoHabilidade.getProjetoId());
+
+        if (projeto == null) {
+            throw new Exception("Projeto informado inexistente");
+        }
+
+        HabilidadeTO habilidade = habilidadeDAO.findById(projetoHabilidade.getHabilidadeId());
+
+        if (habilidade == null) {
+            throw new Exception("Habilidade informada inexistente");
+        }
 
         return projetoHabilidadeDAO.save(projetoHabilidade);
     }
@@ -87,8 +101,22 @@ public class ProjetoHabilidadeBO {
         return projetoHabilidadeDAO.delete(id);
     }
 
-    public ProjetoHabilidadeTO update (ProjetoHabilidadeTO projetoHabilidade) {
+    public ProjetoHabilidadeTO update (ProjetoHabilidadeTO projetoHabilidade) throws Exception{
         projetoHabilidadeDAO = new ProjetoHabilidadeDAO();
+        projetoDAO = new ProjetoDAO();
+        habilidadeDAO = new HabilidadeDAO();
+
+        ProjetoTO projeto = projetoDAO.findById(projetoHabilidade.getProjetoId());
+
+        if (projeto == null) {
+            throw new Exception("Projeto informado inexistente");
+        }
+
+        HabilidadeTO habilidade = habilidadeDAO.findById(projetoHabilidade.getHabilidadeId());
+
+        if (habilidade == null) {
+            throw new Exception("Habilidade informada inexistente");
+        }
 
         return projetoHabilidadeDAO.update(projetoHabilidade);
     }

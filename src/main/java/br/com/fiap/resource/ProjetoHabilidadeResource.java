@@ -61,6 +61,7 @@ public class ProjetoHabilidadeResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response save(@Valid ProjetoHabilidadeTO projetoHabilidade) {
+        try {
         ProjetoHabilidadeTO resultado = projetoHabilidadeBO.save(projetoHabilidade);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
@@ -70,6 +71,10 @@ public class ProjetoHabilidadeResource {
         }
         response.entity(resultado);
         return response.build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @DELETE
@@ -88,6 +93,9 @@ public class ProjetoHabilidadeResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update (@Valid ProjetoHabilidadeTO projetoHabilidade, @PathParam("id") Long id) {
+        try {
+
+
         projetoHabilidade.setId(id);
         ProjetoHabilidadeTO resultado = projetoHabilidadeBO.update(projetoHabilidade);
         Response.ResponseBuilder response = null;
@@ -98,5 +106,9 @@ public class ProjetoHabilidadeResource {
         }
         response.entity(resultado);
         return response.build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

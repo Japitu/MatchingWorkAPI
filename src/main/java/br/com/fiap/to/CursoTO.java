@@ -5,14 +5,16 @@ public class CursoTO {
     private String nome; // nm_curso
     private String descricao;
     private long habilidadeId; // id_habilidade
+    private String nomeHabilidade;
 
     public CursoTO() {}
 
-    public CursoTO(long id, String nome, String descricao, long habilidadeId) {
+    public CursoTO(long id, String nome, String descricao, long habilidadeId, String nomeHabilidade) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.habilidadeId = habilidadeId;
+        this.nomeHabilidade = nomeHabilidade;
     }
 
     public long getId() {
@@ -45,5 +47,13 @@ public class CursoTO {
 
     public void setHabilidadeId(long habilidadeId) {
         this.habilidadeId = habilidadeId;
+    }
+
+    public String getNomeHabilidade() {
+        return nomeHabilidade;
+    }
+
+    public void setNomeHabilidade(String nomeHabilidade) {
+        this.nomeHabilidade = nomeHabilidade;
     }
 }
