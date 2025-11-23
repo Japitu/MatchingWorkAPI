@@ -58,7 +58,7 @@ public class HabilidadeDAO {
     }
 
     public HabilidadeTO save(HabilidadeTO habilidade) {
-        String sql = "insert int t_mw_habilidade (nm_habilidade, dc_habilidade, tp_habilidade) values (?, ?, ?)";
+        String sql = "insert into t_mw_habilidade (nm_habilidade, dc_habilidade, tp_habilidade) values (?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
             ps.setString(1, habilidade.getNome());
             ps.setString(2, habilidade.getDescricao());

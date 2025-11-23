@@ -3,7 +3,7 @@ package br.com.fiap.to;
 import br.com.fiap.enums.TipoHabilidade;
 import br.com.fiap.enums.TipoNivelHabilidade;
 
-public class UsuarioHabilidadeTO {
+public class UsuarioHabilidadeTO { // t_mw_usuario_habilidade
     private long id; // id_usuario_habilidade
     private long usuarioId; // id_usuario
     private String nomeUsuario;

@@ -58,6 +58,33 @@ public class UsuarioHabilidadeDAO {
         return usuarioHabilidade;
     }
 
+    public ArrayList<UsuarioHabilidadeTO> findByHabilidade(Long id) {
+        ArrayList<UsuarioHabilidadeTO> usuarioHabilidades = new ArrayList<UsuarioHabilidadeTO>();
+        String sql = "select * from t_mw_usuario_habilidade where id_habilidade = ?";
+        try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)){
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    UsuarioHabilidadeTO usuarioHabilidade = new UsuarioHabilidadeTO();
+
+                    usuarioHabilidade.setId(rs.getLong("id_usuario_habilidade"));
+                    usuarioHabilidade.setUsuarioId(rs.getLong("id_usuario"));
+                    usuarioHabilidade.setHabilidadeId(rs.getLong("id_habilidade"));
+                    usuarioHabilidade.setNivelExperiencia(TipoNivelHabilidade.valueOf(rs.getString("tp_nivel_experiencia")));
+                    usuarioHabilidades.add(usuarioHabilidade);
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException e){
+            System.out.println("Erro ao buscar: " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+        return usuarioHabilidades;
+    }
+
     public UsuarioHabilidadeTO save(UsuarioHabilidadeTO usuarioHabilidade) {
         String sql = "insert into t_mw_usuario_habilidade (id_usuario, id_habilidade, tp_nivel_experiencia) values (?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {

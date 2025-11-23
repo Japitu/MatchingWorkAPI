@@ -43,18 +43,38 @@ public class UsuarioHabilidadeResource {
         return response.build();
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Valid UsuarioHabilidadeTO usuarioHabilidade) {
-        UsuarioHabilidadeTO resultado = usuarioHabilidadeBO.save(usuarioHabilidade);
+    @GET
+    @Path("/habilidade/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByHabilidade(@PathParam("id") Long id) {
+        ArrayList<UsuarioHabilidadeTO> resultado = usuarioHabilidadeBO.findByHabilidade(id);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
-            response = Response.created(null);
+            response = Response.ok();
         } else {
-            response = Response.status(400);
+            response = Response.status(404);
         }
         response.entity(resultado);
         return response.build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response save(@Valid UsuarioHabilidadeTO usuarioHabilidade) {
+        try{
+            UsuarioHabilidadeTO resultado = usuarioHabilidadeBO.save(usuarioHabilidade);
+            Response.ResponseBuilder response = null;
+            if (resultado != null) {
+                response = Response.created(null);
+            } else {
+                response = Response.status(400);
+            }
+            response.entity(resultado);
+            return response.build();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @DELETE
@@ -73,6 +93,7 @@ public class UsuarioHabilidadeResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@Valid UsuarioHabilidadeTO usuarioHabilidade, @PathParam("id") Long id) {
+        try {
         usuarioHabilidade.setId(id);
         UsuarioHabilidadeTO resultado = usuarioHabilidadeBO.update(usuarioHabilidade);
         Response.ResponseBuilder response = null;
@@ -83,5 +104,9 @@ public class UsuarioHabilidadeResource {
         }
         response.entity(resultado);
         return response.build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

@@ -2,7 +2,7 @@ package br.com.fiap.to;
 
 import br.com.fiap.enums.TipoNivelHabilidade;
 
-public class ProjetoHabilidadeTO {
+public class ProjetoHabilidadeTO { // t_mw_projeto_habilidade
     private long id; // id_projeto_habilidade
     private long projetoId; // id_projeto
     private String nomeProjeto;

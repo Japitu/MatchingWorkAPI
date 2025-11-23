@@ -1,7 +1,7 @@
 package br.com.fiap.resource;
 
-import br.com.fiap.bo.ProjetoHabilidadeBO;
-import br.com.fiap.to.ProjetoHabilidadeTO;
+import br.com.fiap.bo.CursoBO;
+import br.com.fiap.to.CursoTO;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -9,15 +9,15 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 
-@Path("/projeto-habilidade")
+@Path("/curso")
 
-public class ProjetoHabilidadeResource {
-    private ProjetoHabilidadeBO projetoHabilidadeBO = new ProjetoHabilidadeBO();
+public class CursoResource {
+    private CursoBO cursoBO = new CursoBO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findALl() {
-        ArrayList<ProjetoHabilidadeTO> resultado = projetoHabilidadeBO.findAll();
+    public Response findAll() {
+        ArrayList<CursoTO> resultado = cursoBO.findAll();
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -25,29 +25,14 @@ public class ProjetoHabilidadeResource {
             response = Response.status(404);
         }
         response.entity(resultado);
-        return response.build();
+        return  response.build();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) {
-        ProjetoHabilidadeTO resultado = projetoHabilidadeBO.findById(id);
-        Response.ResponseBuilder response = null;
-        if (resultado != null) {
-            response = Response.ok();
-        } else {
-            response = Response.status(404);
-        }
-        response.entity(resultado);
-        return response.build();
-    }
-
-    @GET
-    @Path("/habilidade/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findByHabilidade(@PathParam("id") Long id) {
-        ArrayList<ProjetoHabilidadeTO> resultado = projetoHabilidadeBO.findByHabilidade(id);
+        CursoTO resultado = cursoBO.findById(id);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -60,8 +45,8 @@ public class ProjetoHabilidadeResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Valid ProjetoHabilidadeTO projetoHabilidade) {
-        ProjetoHabilidadeTO resultado = projetoHabilidadeBO.save(projetoHabilidade);
+    public Response save(@Valid CursoTO curso) {
+        CursoTO resultado = cursoBO.save(curso);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.created(null);
@@ -76,7 +61,7 @@ public class ProjetoHabilidadeResource {
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         Response.ResponseBuilder response = null;
-        if (projetoHabilidadeBO.delete(id)) {
+        if (cursoBO.delete(id)) {
             response = Response.status(204);
         } else {
             response = Response.status(404);
@@ -87,9 +72,9 @@ public class ProjetoHabilidadeResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update (@Valid ProjetoHabilidadeTO projetoHabilidade, @PathParam("id") Long id) {
-        projetoHabilidade.setId(id);
-        ProjetoHabilidadeTO resultado = projetoHabilidadeBO.update(projetoHabilidade);
+    public Response update(@Valid CursoTO curso, @PathParam("id") Long id) {
+        curso.setId(id);
+        CursoTO resultado = cursoBO.update(curso);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.created(null);
@@ -99,4 +84,5 @@ public class ProjetoHabilidadeResource {
         response.entity(resultado);
         return response.build();
     }
+
 }

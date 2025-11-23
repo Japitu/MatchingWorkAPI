@@ -59,6 +59,33 @@ public class ProjetoHabilidadeDAO {
         return projetoHabilidade;
     }
 
+    public ArrayList<ProjetoHabilidadeTO> findByHabilidade(Long id) {
+        ArrayList<ProjetoHabilidadeTO> projetoHabilidades = new ArrayList<ProjetoHabilidadeTO>();
+        String sql = "select * from t_mw_projeto_habilidade where id_habilidade = ?";
+        try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)){
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs != null) {
+                while (rs.next()) {
+                    ProjetoHabilidadeTO projetoHabilidade = new ProjetoHabilidadeTO();
+                    projetoHabilidade.setId(rs.getLong("id_projeto_habilidade"));
+                    projetoHabilidade.setProjetoId(rs.getLong("id_projeto"));
+                    projetoHabilidade.setHabilidadeId(rs.getLong("id_habilidade"));
+                    projetoHabilidade.setNivelRequerido(TipoNivelHabilidade.valueOf(rs.getString("tp_nivel_requerido")));
+
+                    projetoHabilidades.add(projetoHabilidade);
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException e){
+            System.out.println("Erro ao buscar: " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+        return projetoHabilidades;
+    }
+
     public ProjetoHabilidadeTO save(ProjetoHabilidadeTO projetoHabilidade) {
         String sql = "insert into t_mw_projeto_habilidade (id_projeto, id_habilidade, tp_nivel_requerido) values (?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {

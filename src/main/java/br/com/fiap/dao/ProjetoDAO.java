@@ -22,7 +22,6 @@ public class ProjetoDAO {
                     projeto.setNome(rs.getString("nm_projeto"));
                     projeto.setDescricao(rs.getString("dc_projeto"));
                     projeto.setStatus(TipoStatusProjeto.valueOf(rs.getString("st_projeto")));
-                    projeto.setCriadorProjetoId(rs.getLong("id_criador"));
 
                     projetos.add(projeto);
                 }
@@ -48,7 +47,6 @@ public class ProjetoDAO {
                 projeto.setNome(rs.getString("nm_projeto"));
                 projeto.setDescricao(rs.getString("dc_projeto"));
                 projeto.setStatus(TipoStatusProjeto.valueOf(rs.getString("st_projeto")));
-                projeto.setCriadorProjetoId(rs.getLong("id_criador"));
             } else {
                 return null;
             }
@@ -61,12 +59,11 @@ public class ProjetoDAO {
     }
 
     public ProjetoTO save(ProjetoTO projeto) {
-        String sql = "insert into t_mw_projeto (nm_projeto, dc_projeto, st_projeto, id_criador) values (?, ?, ?, ?)";
+        String sql = "insert into t_mw_projeto (nm_projeto, dc_projeto, st_projeto) values (?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
             ps.setString(1, projeto.getNome());
             ps.setString(2, projeto.getDescricao());
             ps.setString(3, projeto.getStatus().name());
-            ps.setLong(4, projeto.getCriadorProjetoId());
             if (ps.executeUpdate() > 0) {
                 return projeto;
             } else {
@@ -94,13 +91,12 @@ public class ProjetoDAO {
     }
 
     public ProjetoTO update(ProjetoTO projeto) {
-        String sql = "update t_mw_projeto set nm_projeto = ?, dc_projeto = ?, st_projeto = ?, id_criador = ? where id_projeto = ?";
+        String sql = "update t_mw_projeto set nm_projeto = ?, dc_projeto = ?, st_projeto = ? where id_projeto = ?";
         try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
             ps.setString(1, projeto.getNome());
             ps.setString(2, projeto.getDescricao());
             ps.setString(3, projeto.getStatus().name());
-            ps.setLong(4, projeto.getCriadorProjetoId());
-            ps.setLong(5, projeto.getId());
+            ps.setLong(4, projeto.getId());
             if (ps.executeUpdate() > 0) {
                 return projeto;
             } else {

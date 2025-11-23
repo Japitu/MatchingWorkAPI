@@ -1,21 +1,22 @@
 package br.com.fiap.to;
 
 import br.com.fiap.enums.TipoContaUsuario;
+import jakarta.validation.constraints.NotBlank;
 
-public class UsuarioTO {
+public class UsuarioTO { // t_mw_usuario
     private long id; // id_usuario
+    @NotBlank
     private String nome; // nm_usuario
+    @NotBlank
     private String email; // dc_email
-    private int RM; // nr_rm
     private TipoContaUsuario tipoConta; // tp_conta
 
     public UsuarioTO() {}
 
-    public UsuarioTO(long id, String nome, String email, int RM, TipoContaUsuario tipoConta) {
+    public UsuarioTO(long id, String nome, String email, TipoContaUsuario tipoConta) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.RM = RM;
         this.tipoConta = tipoConta;
     }
 
@@ -41,14 +42,6 @@ public class UsuarioTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getRM() {
-        return RM;
-    }
-
-    public void setRM(int RM) {
-        this.RM = RM;
     }
 
     public TipoContaUsuario getTipoConta() {

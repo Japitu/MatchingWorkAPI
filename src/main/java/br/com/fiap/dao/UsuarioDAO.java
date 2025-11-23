@@ -20,8 +20,7 @@ public class UsuarioDAO {
                     UsuarioTO usuario = new UsuarioTO();
                     usuario.setId(rs.getLong("id_usuario"));
                     usuario.setNome(rs.getString("nm_usuario"));
-                    usuario.setEmail(rs.getString("dc_email")); //Ver dps o nome da coluna no banco com a vih
-                    usuario.setRM(rs.getInt("nr_rm")); //Ver dps o nome da coluna no banco com a vih
+                    usuario.setEmail(rs.getString("dc_email"));
                     usuario.setTipoConta(TipoContaUsuario.valueOf(rs.getString("tp_conta")));
                     usuarios.add(usuario);
                 }
@@ -46,12 +45,11 @@ public class UsuarioDAO {
                 usuario.setId(rs.getLong("id_usuario"));
                 usuario.setNome(rs.getString("nm_usuario"));
                 usuario.setEmail(rs.getString("dc_email"));
-                usuario.setRM(rs.getInt("nr_rm"));
                 usuario.setTipoConta(TipoContaUsuario.valueOf(rs.getString("tp_conta")));
             } else {
                 return null;
             }
-        }catch (SQLException e){
+        } catch (SQLException e){
             System.out.println("Erro ao buscar: " + e.getMessage());
         } finally {
             ConnectionFactory.closeConnection();
@@ -60,12 +58,11 @@ public class UsuarioDAO {
     }
 
     public UsuarioTO save(UsuarioTO usuario) {
-        String sql = "insert into t_mw_usuario (nm_usuario, dc_email, nr_rm, tp_conta) values (?, ?, ?, ?)";
-        try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
+        String sql = "insert into t_mw_usuario (nm_usuario, dc_email, tp_conta) values (?, ?, ?)";
+        try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getEmail());
-            ps.setInt(3, usuario.getRM());
-            ps.setString(4, usuario.getTipoConta().name());
+            ps.setString(3, usuario.getTipoConta().name());
             if (ps.executeUpdate() > 0) {
                 return usuario;
             } else {
@@ -93,13 +90,12 @@ public class UsuarioDAO {
     }
 
     public UsuarioTO update(UsuarioTO usuario) {
-        String sql = "update t_mw_usuario set nm_usuario = ?, dc_email = ?, nr_rm = ?, tp_conta = ? where id_usuario = ?";
+        String sql = "update t_mw_usuario set nm_usuario = ?, dc_email = ?, tp_conta = ? where id_usuario = ?";
         try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getEmail());
-            ps.setInt(3, usuario.getRM());
-            ps.setString(4, usuario.getTipoConta().name());
-            ps.setLong(5, usuario.getId());
+            ps.setString(3, usuario.getTipoConta().name());
+            ps.setLong(4, usuario.getId());
             if (ps.executeUpdate() > 0) {
                 return usuario;
             } else {
